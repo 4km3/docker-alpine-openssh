@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+# Ensure server keys are available
+/usr/bin/ssh-keygen -A
+
+# See https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
+USER_ID="${LOCAL_USER_ID:-9001}"
+USER_NAME="${LOCAL_USER_NAME:-luser}"
+echo "Adding user: '${USER_NAME}' with ID: '${USER_ID}'"
+adduser                                             \
+  -D                                                \
+  -s /bin/false                                     \
+  -u "${USER_ID}"                                   \
+  -h /home/"${USER_NAME}"                           \
+  "${USER_NAME}"
+passwd -u "${USER_NAME}"
+chown root:root /home/"${USER_NAME}"
+
+exec "$@"
