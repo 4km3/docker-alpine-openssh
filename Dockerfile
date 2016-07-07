@@ -2,7 +2,7 @@ FROM        alpine:3.4
 MAINTAINER  pancho horrillo <pancho@pancho.name>
 EXPOSE      22
 ENTRYPOINT  [ "/usr/local/sbin/entrypoint" ]
-CMD         [ "/usr/sbin/sshd", "-D"       ]
+CMD         [ "/usr/sbin/sshd", "-D", "-e" ]
 
 COPY entrypoint /usr/local/sbin/
 
