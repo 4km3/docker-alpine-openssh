@@ -1,5 +1,5 @@
 # ssh-jumper
-Run an OpenSSH service to be used as a Jump Host
+Run an OpenSSH service to be used as a jump host
 
 Add some actual pub keys to $PWD/authorized_keys, 
 and then run the container like this:
