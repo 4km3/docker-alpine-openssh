@@ -11,7 +11,7 @@ $ docker run                                                            \
     -e LOCAL_USER_NAME="${USER}"                                        \
     -e LOCAL_USER_ID=$(id -u "${USER}")                                 \
     -v $PWD/authorized_keys:/home/"${USER}"/.ssh/authorized_keys:ro     \
-    ssh-jumper
+    pancho/ssh-jumper
 ```
 
 We find it useful to use these settings for repeatedly testing the ssh-jumper container:
