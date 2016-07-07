@@ -8,7 +8,6 @@ COPY entrypoint /usr/local/sbin/
 
 RUN set -e;                                             \
     passwd -l root;                                     \
-    chmod +x /usr/local/sbin/entrypoint;                \
     apk add --no-cache openssh;                         \
     sed -i                                              \
       's/#\(PasswordAuthentication\) yes/\1 no/'        \
