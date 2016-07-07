@@ -6,16 +6,22 @@ set -e
 /usr/bin/ssh-keygen -A
 
 # See https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
-USER_ID="${LOCAL_USER_ID:-9001}"
-USER_NAME="${LOCAL_USER_NAME:-luser}"
-echo "Adding user: '${USER_NAME}' with ID: '${USER_ID}'"
-adduser                                             \
-  -D                                                \
-  -s /bin/false                                     \
-  -u "${USER_ID}"                                   \
-  -h /home/"${USER_NAME}"                           \
-  "${USER_NAME}"
-passwd -u "${USER_NAME}"
-chown root:root /home/"${USER_NAME}"
+: "${LOCAL_USER_ID:=9001}"
+: "${LOCAL_USER_NAME:=luser}"
+
+echo "Adding user: '${LOCAL_USER_NAME}' with ID: '${LOCAL_USER_ID}'"
+adduser                         \
+  -D                            \
+  -s /bin/false                 \
+  -u "${LOCAL_USER_ID}"         \
+  -h /home/"${LOCAL_USER_NAME}" \
+  "${LOCAL_USER_NAME}"
+
+# Unlock user account so that OpenSSH allows them to actually create a session
+# FIXME: Prefer fixing it by relaxing PAM settings
+passwd -u "${LOCAL_USER_NAME}"
+
+# Further lock down the user home directory, preventing any sort of file creation
+chown root:root /home/"${LOCAL_USER_NAME}"
 
 exec "$@"
