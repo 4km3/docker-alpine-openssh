@@ -3,7 +3,7 @@ Run an OpenSSH service to be used as a jump host
 
 ## Building
 ```console
-$ docker build -t pancho/ssh-jumper .
+$ docker build -t 4km3/ssh-jumper .
 ```
 ## Configuration
 ### Default values
@@ -30,7 +30,7 @@ $ docker run                                                            \
     -e LOCAL_USER_NAME="${USER}"                                        \
     -e LOCAL_USER_ID=$(id -u "${USER}")                                 \
     -v $PWD/authorized_keys:/home/"${USER}"/.ssh/authorized_keys:ro     \
-    pancho/ssh-jumper
+    4km3/ssh-jumper
 ```
 
 ## Testing
